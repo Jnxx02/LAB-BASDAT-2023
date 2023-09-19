@@ -18,6 +18,12 @@ ORDER BY paymentdate DESC;
 -- No 4
 SELECT productname AS 'Nama Produk', buyprice AS 'Harga Beli', quantityinstock AS 'Jumlah dalam Stok'
 FROM products
-WHERE quantityinstock > 100 AND quantityinstock < 3000
+WHERE quantityinstock > 1000 AND quantityinstock < 3000
 ORDER BY buyprice ASC
 LIMIT 5, 10;
+
+-- N0 5 - Negara dengan limit ketiga terbesar.
+SELECT customernumber, creditlimit, country
+FROM customers
+ORDER BY creditlimit DESC
+LIMIT 2,1;
