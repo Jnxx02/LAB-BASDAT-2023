@@ -1,6 +1,7 @@
 # No 1
 
 -- Membuat database
+DROP DATABASE praktikum3;
 CREATE DATABASE praktikum3;
 
 USE praktikum3;
@@ -26,6 +27,7 @@ VALUES ('H071241056', 'Kotlina', 'A', 'Hadir', 100),
 		 ('H071241079', 'Ruby', 'B', 'Alfa', 90);
 		 
 SELECT * FROM mahasiswa;
+DELETE FROM mahasiswa;
 
 # No 2
 -- Mengubah nilai dan kelas mahasiswa yang alfa
@@ -38,7 +40,7 @@ SELECT * FROM mahasiswa;
 # No 3
 -- Menghapus data mahasiswa yang membobol soal ujian
 DELETE FROM mahasiswa
-WHERE nilai > 90;
+WHERE nilai > 90 AND kelas = 'A';
 
 SELECT * FROM mahasiswa;
 
@@ -61,3 +63,20 @@ UPDATE mahasiswa
 SET kelas = 'A';
 
 SELECT * FROM mahasiswa;
+
+# No 5
+-- Cari di kantor manakah Yoshimi Kato bekerja kemudian ubah officeCode dari kantor tersebut menjadi 11
+DROP DATABASE classicmodels;
+USE classicmodels;
+
+SELECT * FROM employees
+WHERE firstname = 'Yoshimi' AND lastname = 'Kato';
+
+SELECT * FROM offices;
+
+ALTER TABLE employees DROP FOREIGN KEY employees_ibfk_2;     
+ALTER TABLE employees ADD FOREIGN KEY (officeCode) REFERENCES offices (officeCode) ON UPDATE CASCADE;
+
+UPDATE offices
+SET officecode = 11
+WHERE officecode = 5;
