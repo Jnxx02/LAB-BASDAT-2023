@@ -1,11 +1,12 @@
-USE classicmodels;
+DROP USE classicmodels;
 
 # 1.
 SELECT c.customername AS "Nama Customer", c.country AS "Negara", p.paymentdate AS "Tanggal"
 FROM customers c
 JOIN payments p
 ON c.customerNumber = p.customerNumber
-WHERE p.paymentdate > "2004-12-31";
+WHERE p.paymentdate > "2004-12-31"
+ORDER BY p.paymentdate ASC;
 
 # 2.
 SELECT DISTINCT c.customername AS "Nama Customer", p.productname, pl.textdescription
@@ -56,3 +57,33 @@ WHERE `status` = "Cancelled";
 
 SELECT * FROM orders
 WHERE `status` = "Cancelled";
+
+# 5.
+ALTER TABLE customers
+ADD `status` VARCHAR(20);
+
+UPDATE customers
+SET `status` = "Regular";
+
+SELECT * FROM customers;
+
+UPDATE customers c
+JOIN payments p
+ON c.customerNumber = p.customerNumber
+JOIN orders o
+ON c.customerNumber = o.customerNumber
+JOIN orderdetails od
+ON o.orderNumber = od.orderNumber
+SET c.status = "VIP"
+WHERE p.amount > 100000 OR od.quantityOrdered > 50;
+
+SELECT c.customername, od.quantityordered, p.amount, c.status      
+FROM customers c
+JOIN payments p
+ON c.customerNumber = p.customerNumber
+JOIN orders o
+ON c.customerNumber = o.customerNumber
+JOIN orderdetails od
+ON o.orderNumber = od.orderNumber
+WHERE p.amount > 100000 OR od.quantityOrdered > 50
+ORDER BY p.amount DESC;
