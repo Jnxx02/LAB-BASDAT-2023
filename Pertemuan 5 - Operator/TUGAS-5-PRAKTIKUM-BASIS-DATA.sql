@@ -53,7 +53,7 @@ FROM customers c
 	USING (productcode)
 	JOIN payments p
 	USING (customernumber)
-WHERE c.customerName = 'Corporate Gift Ideas Co.';
+WHERE c.customerName = 'Corporate Gift Ideas Co.' && p.paymentDate LIKE '%-11-%';
 
 # d.
 SELECT GROUP_CONCAT(c.customerName), GROUP_CONCAT(pr.productName)
