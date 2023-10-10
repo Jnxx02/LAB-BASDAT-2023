@@ -1,4 +1,4 @@
- USE classicmodels
+ USE classicmodels;
 
 -- 1
 SELECT c.customerName, pr.productName, p.paymentDate, o.`status`
@@ -56,7 +56,7 @@ FROM customers c
 WHERE c.customerName = 'Corporate Gift Ideas Co.' && p.paymentDate LIKE '%-11-%';
 
 # d.
-SELECT GROUP_CONCAT(c.customerName), GROUP_CONCAT(pr.productName)
+SELECT c.customerName, GROUP_CONCAT(" ", pr.productName)
 FROM customers c
 	JOIN orders o
 	USING (customernumber)
@@ -66,7 +66,7 @@ FROM customers c
 	USING (productcode)
 	JOIN payments p
 	USING (customernumber)
-WHERE c.customerName = 'Corporate Gift Ideas Co.'
+WHERE c.customerName = 'Corporate Gift Ideas Co.'&& p.paymentDate LIKE '%-11-%';
 
 -- 3
 SELECT c.customerName, 
@@ -82,8 +82,23 @@ ORDER BY o.orderDate DESC;
 # ‘GiftsForHim.com’ hanya menunggu selama 1 hari pada orderan terakhirnya.
 
 -- 4
-USE world
+USE world;
 
-SELECT c.`Name`
+SELECT c.`Name`, c.`Code`, c.LifeExpectancy
 FROM country c
-WHERE c.`Code`LIKE 'C_K' && c.LifeExpectancy != 0;
+WHERE c.`Code`LIKE 'C%K' && c.LifeExpectancy != 0;
+
+-- 5
+USE classicmodels;
+SELECT * FROM payments;
+
+SELECT c.customerName, DAYNAME(p.paymentDate)
+FROM customers c
+JOIN payments p
+USING (customernumber)
+WHERE (c.customerName LIKE 'a%' OR 
+		c.customerName LIKE 'i%' OR
+		c.customerName LIKE 'u%' OR
+		c.customerName LIKE 'e%' OR
+		c.customerName LIKE 'o%') && DAYNAME (p.paymentDate) = 'Sunday';
+		
